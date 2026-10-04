@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Restaurant Dubai Marina</title>
+<meta name="description" content="Restaurant Dubai Marina - Indian and Asian food restaurant." />
+<meta name="theme-color" content="#0A0A0A">
+<style>
+:root {
+--noir: #0A0A0A; --noir-card: #111111; --bleu-nuit: #151515;
+--blanc: #FFFFFF; --or: #D4AF37; --vert-wa: #00FF89; --rouge-accent: #FF0000; --focus: #FFD700;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { background: var(--noir); color: var(--blanc); font-family: system-ui, -apple-system, Arial, sans-serif; line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+nav { background: var(--noir-card); padding: 12px 10px; position: sticky; top: 0; border-bottom: 2px solid var(--or); z-index: 999; text-align: center; }
+nav a { color: var(--or); text-decoration: none; margin: 4px; font-weight: 700; font-size: 16px; display: inline-block; padding: 12px 16px; border-radius: 8px; min-height: 44px; border: 1px solid transparent; }
+nav a:hover, nav a[aria-current="page"] { color: var(--noir); background: var(--or); }
+.container { padding: 40px 20px; max-width: 1100px; margin: auto; text-align: center; }
+h1, h2, h3 { color: var(--blanc); border: 2px solid var(--or); padding: 20px; border-radius: 15px; box-shadow: 0 0 20px rgba(212,175,55,0.25); background: linear-gradient(135deg, var(--bleu-nuit), var(--noir)); margin: 20px 0; }
+h1 { font-size: clamp(28px, 5vw, 48px); }
+h2 { font-size: clamp(24px, 4vw, 36px); }
+.carte { background: var(--noir-card); padding: 25px; border-radius: 15px; margin: 25px 0; border: 2px solid var(--or); }
+.btn { display: inline-block; background: var(--or); color: var(--noir); padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 18px; border: none; cursor: pointer; margin: 8px; min-height: 48px; transition: transform 0.15s; }
+.btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.btn:active { transform: translateY(1px); }
+#compteur { font-size: clamp(22px, 4vw, 28px); color: var(--or); margin: 20px 0; font-weight: 700; }
+.liste-prix { text-align: left; margin: 15px auto; max-width: 400px; list-style: none; }
+.liste-prix li { padding: 10px 0; border-bottom: 1px solid var(--or); }
+.galerie { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; justify-content: center; }
+.galerie img { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; border: 2px solid var(--or); transition: transform 0.3s, box-shadow 0.3s; }
+.galerie img:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(212,175,55,0.6); }
+.page { display: none; }.page.active { display: block; }
+footer { background: var(--noir-card); padding: 20px; text-align: center; border-top: 2px solid var(--or); margin-top: 40px; }
+img { max-width: 100%; height: auto; }
+.resa-wrapper { max-width: 520px; margin: 0 auto; text-align: left; }
+.resa-card { background: var(--noir-card); border: 2.5px solid var(--or); border-radius: 18px; padding: 28px 22px; box-shadow: 0 0 30px rgba(212,175,55,0.12); }
+.resa-title { color: var(--or)!important; font-size: clamp(26px, 5vw, 32px)!important; font-weight: 800!important; text-align: center!important; border: none!important; background: none!important; box-shadow: none!important; padding: 0!important; margin: 0 0 14px 0!important; }
+.resa-line { height: 3px; width: 100%; background: var(--rouge-accent); border-radius: 2px; margin: 0 0 24px 0; }
+.resa-label { display: block; margin: 18px 0 8px 2px; font-weight: 700; color: var(--or); font-size: 15px; }
+.resa-input,.resa-select,.resa-textarea { width: 100%; padding: 15px 16px; border-radius: 12px; border: 2px solid var(--or); background: var(--noir); color: var(--blanc); font-size: 16px; outline: none; }
+.resa-input::placeholder,.resa-textarea::placeholder { color: #7a7a7a; }
+.resa-input:focus,.resa-select:focus,.resa-textarea:focus { box-shadow: 0 0 0 3px rgba(212,175,55,0.25); }
+.resa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width:480px){.resa-grid{ grid-template-columns:1fr; } }
+.resa-recap { background: #0E0E0E; color: #D0D0D0; }
+.resa-btn { display: block; width: 100%; margin-top: 26px; background: var(--vert-wa); color: #000; padding: 18px 20px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 18px; text-align: center; border: none; cursor: pointer; min-height: 56px; }
+.tags-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; min-height: 20px; }
+.tag { display: inline-flex; align-items: center; gap: 8px; background: #1E1E1E; border: 1.5px solid var(--or); color: var(--blanc); padding: 8px 12px; border-radius: 50px; font-size: 14px; font-weight: 600; }
+.tag-x { width: 20px; height: 20px; border-radius: 50%; background: var(--or); color: #000; border: none; cursor: pointer; font-weight: 800; line-height: 1; display: grid; place-items: center; }
+</style>
+</head>
+<body>
+<a href="#main-content" class="sr-only">Go to main content</a>
+<nav role="navigation" aria-label="Main menu">
+<a href="#" onclick="showPage('accueil')" aria-current="page">Home</a>
+<a href="#" onclick="showPage('a-propos')">About</a>
+<a href="#" onclick="showPage('services')">Menu</a>
+<a href="#" onclick="showPage('portfolio')">Gallery</a>
+<a href="#" onclick="showPage('blog')">Blog</a>
+<a href="#" onclick="showPage('contact')">Order</a>
+<a href="#" onclick="showPage('faq')">FAQ</a>
+</nav>
+<main id="main-content">
+<section class="container page active" id="accueil"><h1>Restaurant Dubai Marina</h1><p>Authentic flavors in Dubai Marina</p><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Restaurant Dubai Marina luxury interior" loading="lazy" width="800" height="500" /><div class="carte"><h2>Welcome</h2><p>Enjoy our selection of delicious dishes, grills, curries, biryani and desserts.</p><a href="#" onclick="showPage('services')" class="btn">See our Menu</a></div></section>
+<section class="container page" id="a-propos"><h2>About</h2><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Restaurant Dubai Marina interior" loading="lazy" width="800" height="500" /><div class="carte"><p>Restaurant Dubai Marina offers authentic Indian and Asian food prepared with fresh ingredients.</p></div></section>
+<section class="container page" id="services"><h2>Our Menu</h2><img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80" alt="Chicken Biryani" loading="lazy" width="800" height="500" /><div class="carte"><h3>Choose your dishes - Price in AED</h3>
+<button class="btn" type="button" onclick="ajouterPrix('Chicken Biryani',20)">+ Chicken Biryani - 20 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Mutton Biryani',25)">+ Mutton Biryani - 25 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Chicken Curry',22)">+ Chicken Curry - 22 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Dal Tadka',12)">+ Dal Tadka - 12 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Butter Chicken',28)">+ Butter Chicken - 28 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Roti',1.5)">+ Roti - 1.50 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Paratha',3)">+ Paratha - 3 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Chicken Kebab',22)">+ Chicken Kebab - 22 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Beef Fry',24)">+ Beef Fry - 24 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Prawn Curry',35)">+ Prawn Curry - 35 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Mix Grill',45)">+ Mix Grill - 45 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Plain Rice',10)">+ Plain Rice - 10 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Palak Paneer',22)">+ Palak Paneer - 22 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Kabab Roll',10)">+ Kabab Roll - 10 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Lassi',10)">+ Lassi - 10 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Karak Chai',3)">+ Karak Chai - 3 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Fresh Orange Juice',12)">+ Fresh Orange Juice - 12 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Gajar Halwa',10)">+ Gajar Halwa - 10 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Rice Kheer',10)">+ Rice Kheer - 10 AED</button>
+<button class="btn" type="button" onclick="ajouterPrix('Mineral Water',2)">+ Mineral Water - 2 AED</button>
+<button class="btn" type="button" onclick="resetPrix()">Reset</button>
+<div id="compteur" aria-live="polite">Total: 0 AED</div><ul id="liste" class="liste-prix"></ul></div></section>
+<section class="container page" id="portfolio"><h2>Gallery</h2><div class="carte"><div class="galerie">
+<img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80" alt="Chicken Biryani" loading="lazy" width="400" height="400" />
+<img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80" alt="Butter Chicken" loading="lazy" width="400" height="400" />
+<img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" alt="Mix Grill" loading="lazy" width="400" height="400" />
+<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Restaurant interior luxury" loading="lazy" width="400" height="400" />
+<img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Restaurant interior" loading="lazy" width="400" height="400" />
+</div></div></section>
+<section class="container page" id="blog"><h2>Blog</h2><article class="carte"><h3>Our Food</h3><p>Discover our biryani, curries, grills, drinks and desserts.</p></article></section>
+<section class="container page" id="contact">
+<div class="resa-wrapper">
+<div class="resa-card">
+<h2 class="resa-title">Order on WhatsApp</h2>
+<div class="resa-line"></div>
+<label class="resa-label" for="nomClient">Your Name *</label>
+<input class="resa-input" type="text" id="nomClient" placeholder="John Doe" />
+<label class="resa-label" for="serviceSelect">Select Dish</label>
+<select class="resa-select" id="serviceSelect">
+<option value="">-- Choose a dish --</option>
+<option value="Chicken Biryani|20">Chicken Biryani - 20 AED</option>
+<option value="Mutton Biryani|25">Mutton Biryani - 25 AED</option>
+<option value="Chicken Curry|22">Chicken Curry - 22 AED</option>
+<option value="Dal Tadka|12">Dal Tadka - 12 AED</option>
+<option value="Butter Chicken|28">Butter Chicken - 28 AED</option>
+<option value="Roti|1.5">Roti - 1.50 AED</option>
+<option value="Paratha|3">Paratha - 3 AED</option>
+<option value="Chicken Kebab|22">Chicken Kebab - 22 AED</option>
+<option value="Beef Fry|24">Beef Fry - 24 AED</option>
+<option value="Prawn Curry|35">Prawn Curry - 35 AED</option>
+<option value="Mix Grill|45">Mix Grill - 45 AED</option>
+<option value="Plain Rice|10">Plain Rice - 10 AED</option>
+<option value="Palak Paneer|22">Palak Paneer - 22 AED</option>
+<option value="Kabab Roll|10">Kabab Roll - 10 AED</option>
+<option value="Lassi|10">Lassi - 10 AED</option>
+<option value="Karak Chai|3">Karak Chai - 3 AED</option>
+<option value="Fresh Orange Juice|12">Fresh Orange Juice - 12 AED</option>
+<option value="Gajar Halwa|10">Gajar Halwa - 10 AED</option>
+<option value="Rice Kheer|10">Rice Kheer - 10 AED</option>
+<option value="Mineral Water|2">Mineral Water - 2 AED</option>
+</select>
+<div id="tagsBox" class="tags-box"></div>
+<div class="resa-grid">
+<div>
+<label class="resa-label" for="dateRdv">Date *</label>
+<input class="resa-input" type="date" id="dateRdv" />
+</div>
+<div>
+<label class="resa-label" for="heureRdv">Time *</label>
+<input class="resa-input" type="time" id="heureRdv" />
+</div>
+</div>
+<label class="resa-label" for="detailsRecap">Order details</label>
+<input class="resa-input resa-recap" type="text" id="detailsRecap" readonly placeholder="Ex: Chicken Biryani, Lassi" />
+<label class="resa-label" for="prixRecap">Total price</label>
+<input class="resa-input resa-recap" type="text" id="prixRecap" readonly placeholder="0 AED" />
+<label class="resa-label" for="specialRequest">Other special request? (Optional)</label>
+<textarea class="resa-textarea" id="specialRequest" rows="3" placeholder="Write your special request here..."></textarea>
+<a id="whatsappBtn" href="https://wa.me/22955270700?text=Hello" target="_blank" rel="noopener noreferrer" class="resa-btn">Send my order</a>
+</div>
+</div>
+</section>
+<section class="container page" id="faq"><h2>FAQ</h2><div class="carte"><h3>Can I order directly?</h3><p>Yes. Select your dishes, date and time, then send your order directly through WhatsApp.</p></div></section>
+</main>
+<footer><p>© 2026 Restaurant Dubai Marina</p></footer>
+<script>
+let total=0;
+let panier=[];
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active');p.setAttribute('aria-hidden','true');});
+document.querySelectorAll('nav a').forEach(a=>a.removeAttribute('aria-current'));
+const active=document.getElementById(id);
+active.classList.add('active');
+active.setAttribute('aria-hidden','false');
+document.querySelector(`nav a[onclick*="${id}"]`).setAttribute('aria-current','page');
+window.scrollTo({top:0,behavior:'smooth'});
+}
+function ajouterPrix(nom,prix){
+total+=prix;
+panier.push({nom,prix});
+renderPanier();
+syncRecap();
+}
+function resetPrix(){
+total=0;
+panier=[];
+renderPanier();
+syncRecap();
+}
+function renderPanier(){
+document.getElementById("compteur").innerText=`Total: ${total.toFixed(2)} AED`;
+document.getElementById("liste").innerHTML=panier.map(i=>`<li>${i.nom} - ${i.prix.toFixed(2)} AED</li>`).join('');
+}
+function removeService(index){
+total -= panier[index].prix;
+panier.splice(index,1);
+renderPanier();
+syncRecap();
+}
+function syncRecap(){
+const names=panier.map(i=>i.nom);
+const tagsBox=document.getElementById("tagsBox");
+tagsBox.innerHTML = panier.map((item, idx) => `
+<span class="tag">${item.nom} - ${item.prix.toFixed(2)} AED <button class="tag-x" onclick="removeService(${idx})" aria-label="Remove ${item.nom}">x</button></span>
+`).join('');
+document.getElementById("detailsRecap").value = names.length? names.join(', ') : "";
+document.getElementById("prixRecap").value = total? `${total.toFixed(2)} AED` : "";
+updateWA();
+}
+function updateWA(){
+let nom=document.getElementById("nomClient").value.trim();
+let service=document.getElementById("detailsRecap").value.trim();
+let date=document.getElementById("dateRdv").value;
+let heure=document.getElementById("heureRdv").value;
+let prix=document.getElementById("prixRecap").value.trim();
+let special=document.getElementById("specialRequest").value.trim();
+let btn=document.getElementById("whatsappBtn");
+let isValid = nom!== "" && service!== "" && date!== "" && heure!== "" && prix!== "";
+if(!isValid){
+btn.style.opacity="0.5";
+btn.style.pointerEvents="none";
+btn.setAttribute("aria-disabled","true");
+return;
+}
+btn.style.opacity="1";
+btn.style.pointerEvents="auto";
+btn.removeAttribute("aria-disabled");
+let details = service;
+let msg = `Hi Restaurant Dubai Marina, my name is ${nom}, I want to order ${service} on ${date} at ${heure}, details: ${details} and total price is ${prix}.`;
+if(special){ msg += ` Special request: ${special}.`; }
+btn.href=`https://wa.me/22955270700?text=${encodeURIComponent(msg)}`;
+}
+document.getElementById("serviceSelect").addEventListener("change", function(){
+if(!this.value) return;
+let [nom, prix] = this.value.split("|");
+prix = parseFloat(prix);
+ajouterPrix(nom, prix);
+this.value = "";
+});
+["nomClient","dateRdv","heureRdv","specialRequest"].forEach(id=>{
+document.getElementById(id).addEventListener('input',updateWA);
+document.getElementById(id).addEventListener('change',updateWA);
+});
+renderPanier();
+syncRecap();
+</script>
+</body>
+  </html>
